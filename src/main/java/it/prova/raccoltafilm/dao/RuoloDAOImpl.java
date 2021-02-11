@@ -18,8 +18,8 @@ public class RuoloDAOImpl implements RuoloDAO {
 
 	@Override
 	public List<Ruolo> list() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return entityManager.createQuery("from Ruolo", Ruolo.class).getResultList();
+	
 	}
 
 	@Override
@@ -30,7 +30,9 @@ public class RuoloDAOImpl implements RuoloDAO {
 
 	@Override
 	public void update(Ruolo ruoloInstance) throws Exception {
-		// TODO Auto-generated method stub
+		if(ruoloInstance==null)
+			throw new Exception("Problema valore in input");
+		ruoloInstance=entityManager.merge(ruoloInstance);
 
 	}
 
@@ -46,7 +48,9 @@ public class RuoloDAOImpl implements RuoloDAO {
 
 	@Override
 	public void delete(Ruolo ruoloInstance) throws Exception {
-		// TODO Auto-generated method stub
+		if(ruoloInstance==null)
+			throw new Exception("Problema valore in input");
+		entityManager.remove(entityManager.merge(ruoloInstance));
 
 	}
 

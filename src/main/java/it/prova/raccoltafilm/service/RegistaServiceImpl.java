@@ -1,6 +1,7 @@
 package it.prova.raccoltafilm.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 
@@ -39,8 +40,18 @@ public class RegistaServiceImpl implements RegistaService {
 
 	@Override
 	public Regista caricaSingoloElemento(Long id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		EntityManager entityManager=LocalEntityManagerFactoryListener.getEntityManager();
+		
+		try {
+			registaDAO.setEntityManager(entityManager);
+			Optional<Regista> registaTrovato=registaDAO.findOne(id);
+			return registaTrovato.get();
+		}catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
+		}
 	}
 
 	@Override

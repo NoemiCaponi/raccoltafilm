@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 
 import it.prova.raccoltafilm.model.Film;
 
+
 public class FilmDAOImpl implements FilmDAO {
 
 	private EntityManager entityManager;
@@ -23,13 +24,15 @@ public class FilmDAOImpl implements FilmDAO {
 
 	@Override
 	public Optional<Film> findOne(Long id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		Film result = entityManager.find(Film.class, id);
+		return result != null ? Optional.of(result) : Optional.empty();
 	}
 
 	@Override
 	public void update(Film filmInstance) throws Exception {
-		// TODO Auto-generated method stub
+		if(filmInstance==null)
+			throw new Exception("Problema valore in input");
+		filmInstance=entityManager.merge(filmInstance);
 
 	}
 
@@ -43,7 +46,9 @@ public class FilmDAOImpl implements FilmDAO {
 
 	@Override
 	public void delete(Film filmInstance) throws Exception {
-		// TODO Auto-generated method stub
+		if(filmInstance==null || filmInstance.getId()<1)
+			throw new Exception("Problema valore in input");
+		entityManager.remove(entityManager.merge(filmInstance));
 
 	}
 
