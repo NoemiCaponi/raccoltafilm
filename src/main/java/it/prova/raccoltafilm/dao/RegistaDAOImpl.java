@@ -11,6 +11,7 @@ import javax.persistence.TypedQuery;
 
 import org.apache.commons.lang3.StringUtils;
 
+import it.prova.raccoltafilm.model.Film;
 import it.prova.raccoltafilm.model.Regista;
 ;
 
@@ -97,5 +98,12 @@ public class RegistaDAOImpl implements RegistaDAO {
 		return typedQuery.getResultList();
 
 	}
+	
+	public Regista findOneFilm (Long id) throws Exception {
+		TypedQuery<Regista> query = entityManager.createQuery("from Regista r left join fetch r.films where r.id = ?1", Regista.class);
+		query.setParameter(1, id);
+		return query.getResultStream().findFirst().orElse(null);
+	}
+
 
 }

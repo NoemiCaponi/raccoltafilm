@@ -44,8 +44,8 @@ public class RegistaServiceImpl implements RegistaService {
 		
 		try {
 			registaDAO.setEntityManager(entityManager);
-			Optional<Regista> registaTrovato=registaDAO.findOne(id);
-			return registaTrovato.get();
+			
+			return registaDAO.findOne(id).orElse(null);
 		}catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -56,13 +56,37 @@ public class RegistaServiceImpl implements RegistaService {
 
 	@Override
 	public Regista caricaSingoloElementoConFilms(Long id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		EntityManager entityManager=LocalEntityManagerFactoryListener.getEntityManager();
+		try {
+
+			registaDAO.setEntityManager(entityManager);
+			return registaDAO.findOneFilm(id);
+		
+		}catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
+		}
 	}
 
 	@Override
 	public void aggiorna(Regista registaInstance) throws Exception {
-		// TODO Auto-generated method stub
+		EntityManager entityManager=LocalEntityManagerFactoryListener.getEntityManager();
+		
+		try {
+			entityManager.getTransaction().begin();
+			registaDAO.setEntityManager(entityManager);
+			registaDAO.update(registaInstance);
+			entityManager.getTransaction().commit();
+			
+		}catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			e.printStackTrace();
+			throw e;
+		} finally {
+			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
+		}
 
 	}
 
@@ -93,7 +117,20 @@ public class RegistaServiceImpl implements RegistaService {
 
 	@Override
 	public void rimuovi(Regista registaInstance) throws Exception {
-		// TODO Auto-generated method stub
+		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
+		
+		try {
+			entityManager.getTransaction().begin();
+			registaDAO.setEntityManager(entityManager);
+			registaDAO.delete(registaInstance);
+			entityManager.getTransaction().commit();
+		}catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			e.printStackTrace();
+			throw e;
+		} finally {
+			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
+		}
 
 	}
 

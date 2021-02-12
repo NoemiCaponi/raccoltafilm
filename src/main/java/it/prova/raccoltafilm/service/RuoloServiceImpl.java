@@ -70,7 +70,6 @@ public class RuoloServiceImpl implements RuoloService {
 
 	}
 
-	
 
 	@Override
 	public void inserisciNuovo(Ruolo ruoloInstance) throws Exception {
@@ -100,7 +99,19 @@ public class RuoloServiceImpl implements RuoloService {
 
 	@Override
 	public void rimuovi(Ruolo ruoloInstance) throws Exception {
-		// TODO Auto-generated method stub
+		EntityManager entityManager=LocalEntityManagerFactoryListener.getEntityManager();
+		
+		try {
+			entityManager.getTransaction().begin();
+			
+		}catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			e.printStackTrace();
+			throw e;
+		} finally {
+			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
+		}
+
 
 	}
 
