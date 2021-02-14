@@ -103,6 +103,9 @@ public class RuoloServiceImpl implements RuoloService {
 		
 		try {
 			entityManager.getTransaction().begin();
+			ruoloDAO.setEntityManager(entityManager);
+			ruoloDAO.delete(ruoloInstance);
+			entityManager.getTransaction().commit();
 			
 		}catch (Exception e) {
 			entityManager.getTransaction().rollback();
