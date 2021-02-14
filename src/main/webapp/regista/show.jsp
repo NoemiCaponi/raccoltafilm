@@ -40,6 +40,10 @@
 				  <dt class="col-sm-3 text-right">Nickname:</dt>
 				  <dd class="col-sm-9">${show_regista_attr.nickName}</dd>
 		    	</dl>
+		    	<dl class="row">
+				  <dt class="col-sm-3 text-right">Sesso:</dt>
+				  <dd class="col-sm-9">${show_regista_attr.sesso}</dd>
+		    	</dl>		    	
 		    	
 		    	<dl class="row">
 				  <dt class="col-sm-3 text-right">Data di nascita:</dt>
