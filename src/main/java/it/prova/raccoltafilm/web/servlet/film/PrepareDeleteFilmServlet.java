@@ -33,7 +33,7 @@ public class PrepareDeleteFilmServlet extends HttpServlet {
 
 			if (filmInstance == null) {
 				request.setAttribute("errorMessage", "Elemento non trovato.");
-				request.getRequestDispatcher("ExecuteListRegistaServlet?operationResult=NOT_FOUND").forward(request,
+				request.getRequestDispatcher("ExecuteListFilmServlet?operationResult=NOT_FOUND").forward(request,
 						response);
 				return;
 			}

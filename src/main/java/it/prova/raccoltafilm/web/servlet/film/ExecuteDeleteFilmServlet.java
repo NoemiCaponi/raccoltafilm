@@ -33,7 +33,7 @@ public class ExecuteDeleteFilmServlet extends HttpServlet {
 			return;
 		}
 		
-		response.sendRedirect("ExecuteListRegistaServlet?operationResult=SUCCESS");
+		response.sendRedirect("ExecuteListFilmServlet?operationResult=SUCCESS");
 	}
 
 }
