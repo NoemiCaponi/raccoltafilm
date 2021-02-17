@@ -24,7 +24,7 @@ public class ExecuteDeleteRegistaServlet extends HttpServlet {
 	
 			MyServiceFactory.getRegistaServiceInstance().rimuovi(registaInstance);
 			request.setAttribute("successMessage", "Operazione effettuata con successo");
-			request.setAttribute("delete_regista_attr", MyServiceFactory.getRegistaServiceInstance().listAllElements());
+			//request.setAttribute("delete_regista_attr", MyServiceFactory.getRegistaServiceInstance().listAllElements());
 			
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -1,17 +1,22 @@
 package it.prova.raccoltafilm.service;
 
 import java.util.List;
-import java.util.Optional;
+
 
 import javax.persistence.EntityManager;
 
+import it.prova.raccoltafilm.dao.FilmDAO;
+import it.prova.raccoltafilm.dao.MyDAOFactory;
 import it.prova.raccoltafilm.dao.RegistaDAO;
+import it.prova.raccoltafilm.model.Film;
 import it.prova.raccoltafilm.model.Regista;
 import it.prova.raccoltafilm.web.listener.LocalEntityManagerFactoryListener;
 
 public class RegistaServiceImpl implements RegistaService {
 
 	private RegistaDAO registaDAO;
+	
+	private FilmDAO filmDAO;
 
 	@Override
 	public void setRegistaDAO(RegistaDAO registaDAO) {
@@ -121,7 +126,17 @@ public class RegistaServiceImpl implements RegistaService {
 		
 		try {
 			entityManager.getTransaction().begin();
+			
+			filmDAO=MyDAOFactory.getFilmDAOInstance();
+			filmDAO.setEntityManager(entityManager);
+			
+			for(Film filmItem: filmDAO.findByRegista(registaInstance)) {
+				filmItem.setRegista(null);
+				filmDAO.delete(filmItem);
+			}
 			registaDAO.setEntityManager(entityManager);
+			registaInstance=registaDAO.findOneFilm(registaInstance.getId());
+			
 			registaDAO.delete(registaInstance);
 			entityManager.getTransaction().commit();
 		}catch (Exception e) {
