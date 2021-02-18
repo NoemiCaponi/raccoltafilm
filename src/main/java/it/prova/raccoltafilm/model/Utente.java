@@ -131,5 +131,10 @@ public class Utente {
 		}
 		return false;
 	}
+	
+	public void addRuolo(Ruolo r) {
+		this.ruoli.add(r);
+		
+	}
 
 }

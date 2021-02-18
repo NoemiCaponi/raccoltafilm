@@ -44,12 +44,12 @@
 	      <div class="col-md-6">
 	        <h2>Gestione Registi</h2>
 	        <p>Questa funzionalità è realtiva alla Gestione dei Registi</p>
-	        <p><a class="btn btn-primary" href="ExecuteListRegistaServlet" role="button">Vai alla Funzionalità &raquo;</a></p>
+	        <p><a class="btn btn-primary" href="ExecuteListRegistaServlet" role="button">Vai alla Funzionalità Regista &raquo;</a></p>
 	      </div>
 	      <div class="col-md-6">
 	        <h2>Heading</h2>
 	        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-	        <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+	        <p><a class="btn btn-secondary" href="ExecuteListUtenteServlet" role="button">Visualizza utenti&raquo;</a></p>
 	      </div>
 	    </div>
 	

@@ -29,6 +29,16 @@ public class UtilityForm {
 		}
 		return true;
 	}
+	
+	public static boolean validateUtenteFormInput(String nomeInputParam, String cognomeInputParam,
+			String usernameInputParam, String passwordInputParam, String dateCreatedStringParam, String ruoloInputParam) {
+		if (StringUtils.isBlank(nomeInputParam) || StringUtils.isBlank(cognomeInputParam)
+				|| StringUtils.isBlank(usernameInputParam) || StringUtils.isBlank(dateCreatedStringParam)
+				|| StringUtils.isBlank(passwordInputParam) || !NumberUtils.isCreatable(ruoloInputParam) ) {
+			return false;
+		}
+		return true;
+	}
 
 	public static Date parseDateArrivoFromString(String dataDiNascitaStringParam) {
 		if (StringUtils.isBlank(dataDiNascitaStringParam))
