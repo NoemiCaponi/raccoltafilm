@@ -85,5 +85,13 @@ public class UtenteDAOImpl implements UtenteDAO {
 		query.setParameter("statoUtente", StatoUtente.ATTIVO);
 		return query.getResultStream().findFirst();
 	}
+	
+	public Utente caricaUtenteConRuolo(Long id) throws Exception{
+		TypedQuery<Utente> query=entityManager.createQuery("from Utente u left join fetch u.ruoli where u.id = ?1",Utente.class);
+		query.setParameter(1, id);
+		return query.getResultStream().findFirst().orElse(null);
+	}
+	
+	
 
 }

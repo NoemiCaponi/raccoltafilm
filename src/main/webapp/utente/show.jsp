@@ -51,12 +51,21 @@
 		    	</dl>
 		    	<dl class="row">
 				  <dt class="col-sm-3 text-right">Stato:</dt>
-				  <dd class="col-sm-9">${show_utente_attr.stato}" /></dd>
+				  <dd class="col-sm-9">${show_utente_attr.stato}</dd>
 		    	</dl>
-		    	<p>
+		    	
+		    	<div class="row">
+		    	<div class="col-lg-6">
 				  <a class="btn btn-primary btn-sm" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-				    Info Ruolo</a>
-				</p>
+				    Info Ruolo</a> </div>
+				  <!-- <div class="col-lg-6">
+				  	 <label>Stato<span class="text-danger"></span></label>
+						<input type="text" name="stato" id="stato" class="form-control" value="${show_utente_attr.stato}"required>
+				    <a href="PrepareUpdateStatoUtente" class='btn btn-primary btn-sm' role="button">
+		           Cambia Stato
+		        </a></div> --> 
+				    </div>
+				
 				<div class="collapse" id="collapseExample">
 				  <div class="card card-body">
 				  <div class='table-responsive'>
@@ -69,13 +78,13 @@
 		                    </tr>
 		                </thead>
 		                <tbody>
-		                <%-- 	<c:forEach items="${show_utente_attr.ruoli}" var="ruoliItem">
+		                	<c:forEach items="${show_utente_attr.ruoli}" var="ruoliItem">
 								<tr>
 									<td>${ruoliItem.descrizione}</td>
 									<td>${ruoliItem.codice}</td>
 									
 								</tr>
-							</c:forEach> --%>
+							</c:forEach>
 		                </tbody>
 		            </table>
 		        </div>

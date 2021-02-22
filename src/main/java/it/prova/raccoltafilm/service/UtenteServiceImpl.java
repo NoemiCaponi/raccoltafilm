@@ -205,5 +205,21 @@ public class UtenteServiceImpl implements UtenteService {
 		}
 
 	}
+	
+	public Utente caricaUtenteConRuolo(Long id) throws Exception{
+		EntityManager entityManager=LocalEntityManagerFactoryListener.getEntityManager();
+		try {
+			utenteDAO.setEntityManager(entityManager);
+			return utenteDAO.caricaUtenteConRuolo(id);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
+		
+			
+		}
+	}
 
 }

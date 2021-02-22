@@ -12,24 +12,22 @@ import org.apache.commons.lang3.math.NumberUtils;
 import it.prova.raccoltafilm.model.Utente;
 import it.prova.raccoltafilm.service.MyServiceFactory;
 
-
-@WebServlet("/ExecuteVisualizzaUtenteServlet")
-public class ExecuteVisualizzaUtenteServlet extends HttpServlet {
+@WebServlet("/PrepareUpdateUtenteServlet")
+public class PrepareUpdateUtenteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String idUtenteParam=request.getParameter("idUtente");
+	String idUtenteParam = request.getParameter("idUtente");
 		
 		if (!NumberUtils.isCreatable(idUtenteParam)) {
 			request.setAttribute("errorMessage", "Attenzione si è verificato un errore.");
 			request.getRequestDispatcher("home").forward(request, response);
 			return;
 		}
+
 		try {
-			
-			//Utente utenteInstance = MyServiceFactory.getUtenteServiceInstance().caricaSingoloElemento(Long.parseLong(idUtenteParam));
 			Utente utenteInstance = MyServiceFactory.getUtenteServiceInstance().caricaUtenteConRuolo(Long.parseLong(idUtenteParam));
 
 			if (utenteInstance == null) {
@@ -38,21 +36,18 @@ public class ExecuteVisualizzaUtenteServlet extends HttpServlet {
 						response);
 				return;
 			}
-
-			request.setAttribute("show_utente_attr", utenteInstance);
+			
+			request.setAttribute("update_utente_attr", utenteInstance);
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "Attenzione si è verificato un errore.");
-			request.getRequestDispatcher("ExecuteListUtenteServlet?operationResult=NOT_FOUND").forward(request,
-					response);
+			request.getRequestDispatcher("home").forward(request, response);
 			return;
 		}
 
-		
-		
-		
-		request.getRequestDispatcher("/utente/show.jsp").forward(request, response);
+		request.getRequestDispatcher("/utente/update.jsp").forward(request, response);
 	}
-	
+
+
 
 }

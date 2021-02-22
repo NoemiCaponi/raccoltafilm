@@ -26,5 +26,6 @@ public interface UtenteService  {
 
 	//per injection
 	public void setUtenteDAO(UtenteDAO utenteDAO);
-
+	
+	public Utente caricaUtenteConRuolo(Long id) throws Exception;
 }
