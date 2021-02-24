@@ -39,12 +39,12 @@ public class FilmServiceImpl implements FilmService {
 
 	@Override
 	public Film caricaSingoloElemento(Long id) throws Exception {
-		EntityManager entityManager=LocalEntityManagerFactoryListener.getEntityManager();
-		
+		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
+
 		try {
 			filmDAO.setEntityManager(entityManager);
 			return filmDAO.findOne(id).orElse(null);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -75,7 +75,21 @@ public class FilmServiceImpl implements FilmService {
 
 	@Override
 	public void aggiorna(Film filmInstance) throws Exception {
-		// TODO Auto-generated method stub
+		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
+
+		try {
+			entityManager.getTransaction().begin();
+			filmDAO.setEntityManager(entityManager);
+			filmDAO.update(filmInstance);
+			entityManager.getTransaction().commit();
+
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			e.printStackTrace();
+			throw e;
+		} finally {
+			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
+		}
 
 	}
 
@@ -92,7 +106,8 @@ public class FilmServiceImpl implements FilmService {
 			filmDAO.setEntityManager(entityManager);
 
 			// eseguo quello che realmente devo fare
-			// grazie al fatto che il regista ha un id viene eseguito il merge automaticamente
+			// grazie al fatto che il regista ha un id viene eseguito il merge
+			// automaticamente
 			// se quell'id non ha un corrispettivo in tabella viene lanciata una eccezione
 			filmDAO.insert(filmInstance);
 
@@ -109,13 +124,13 @@ public class FilmServiceImpl implements FilmService {
 
 	@Override
 	public void rimuovi(Film filmInstance) throws Exception {
-		EntityManager entityManager=LocalEntityManagerFactoryListener.getEntityManager();
+		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
 		try {
 			entityManager.getTransaction().begin();
 			filmDAO.setEntityManager(entityManager);
 			filmDAO.delete(filmInstance);
 			entityManager.getTransaction().commit();
-		} catch(Exception e) {
+		} catch (Exception e) {
 			entityManager.getTransaction().rollback();
 			e.printStackTrace();
 			throw e;
@@ -127,8 +142,21 @@ public class FilmServiceImpl implements FilmService {
 
 	@Override
 	public List<Film> findByExample(Film example) throws Exception {
-		// da implementare
-		return this.listAllElements();
+		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
+
+		try {
+			filmDAO.setEntityManager(entityManager);
+
+			// eseguo quello che realmente devo fare
+			return filmDAO.findByExample(example);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
+		}
+
 	}
 
 }

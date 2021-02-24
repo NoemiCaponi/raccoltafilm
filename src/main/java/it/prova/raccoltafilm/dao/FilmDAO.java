@@ -9,4 +9,5 @@ import it.prova.raccoltafilm.model.Regista;
 public interface FilmDAO extends IBaseDAO<Film> {
 	public Optional<Film> findOneEager(Long id) throws Exception;
 	public List<Film> findByRegista(Regista registaInstance) throws Exception;
+	public List<Film> findByExample(Film example) throws Exception;
 }

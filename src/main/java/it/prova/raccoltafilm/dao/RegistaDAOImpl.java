@@ -10,10 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import org.apache.commons.lang3.StringUtils;
-
-import it.prova.raccoltafilm.model.Film;
-import it.prova.raccoltafilm.model.Regista;
-;
+import it.prova.raccoltafilm.model.Regista;;
 
 public class RegistaDAOImpl implements RegistaDAO {
 
@@ -37,9 +34,9 @@ public class RegistaDAOImpl implements RegistaDAO {
 
 	@Override
 	public void update(Regista registaInstance) throws Exception {
-		if(registaInstance==null)
+		if (registaInstance == null)
 			throw new Exception("Problema valore in input");
-		registaInstance=entityManager.merge(registaInstance);
+		registaInstance = entityManager.merge(registaInstance);
 
 	}
 
@@ -53,7 +50,7 @@ public class RegistaDAOImpl implements RegistaDAO {
 
 	@Override
 	public void delete(Regista registaInstance) throws Exception {
-		if(registaInstance==null || registaInstance.getId()<1)
+		if (registaInstance == null || registaInstance.getId() < 1)
 			throw new Exception("Problema valore in input");
 		entityManager.remove(entityManager.merge(registaInstance));
 	}
@@ -86,8 +83,8 @@ public class RegistaDAOImpl implements RegistaDAO {
 			whereClauses.add("r.dataDiNascita = :dataDiNascita ");
 			paramaterMap.put("dataDiNascita", example.getDataDiNascita());
 		}
-		
-		queryBuilder.append(!whereClauses.isEmpty()?" and ":"");
+
+		queryBuilder.append(!whereClauses.isEmpty() ? " and " : "");
 		queryBuilder.append(StringUtils.join(whereClauses, " and "));
 		TypedQuery<Regista> typedQuery = entityManager.createQuery(queryBuilder.toString(), Regista.class);
 
@@ -98,12 +95,12 @@ public class RegistaDAOImpl implements RegistaDAO {
 		return typedQuery.getResultList();
 
 	}
-	
-	public Regista findOneFilm (Long id) throws Exception {
-		TypedQuery<Regista> query = entityManager.createQuery("from Regista r left join fetch r.films where r.id = ?1", Regista.class);
+
+	public Regista findOneFilm(Long id) throws Exception {
+		TypedQuery<Regista> query = entityManager.createQuery("from Regista r left join fetch r.films where r.id = ?1",
+				Regista.class);
 		query.setParameter(1, id);
 		return query.getResultStream().findFirst().orElse(null);
 	}
-
 
 }
